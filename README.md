@@ -1,5 +1,7 @@
 # CryptoBench.js
 
+[![Build Status](https://travis-ci.org/mnasyrov/cryptobench-js.svg?branch=master)](https://travis-ci.org/mnasyrov/cryptobench-js)
+
 Benchmarks for javascript crypto libraries.
 
 The subject of tests are client-side javascript libraries under various environments:
