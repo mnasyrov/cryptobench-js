@@ -237,5 +237,5 @@ Cordova app:
 
 ## Useful links
 
-* (JavaScript Crypto Libraries)[https://gist.github.com/jo/8619441]
+* [JavaScript Crypto Libraries](https://gist.github.com/jo/8619441)
 
