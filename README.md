@@ -24,7 +24,6 @@ Libraries:
 
 Where is possible WebCrypto API is tested as a reference.
 A fallback to `webcrypto-liner`/`asmcrypto.js` is used if a native implementation is not available.
-Cordova on Android 4.4 have no results for WebCrypto API due an issue.
 
 
 ## Running benchmarks
