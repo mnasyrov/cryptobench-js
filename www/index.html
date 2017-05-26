@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CryptoBench.js</title>
+</head>
+<body>
+<p>
+    Benchmarks for javascript crypto libraries.
+</p>
+<button id="runButton" onclick="runTests()">Run tests</button>
+<pre id="log"></pre>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="vendor/corejs-shim.js"></script>
+<script type="text/javascript" src="vendor/asmcrypto.js"></script>
+<script>
+    asmCrypto.random.skipSystemRNGWarning = true;
+</script>
+<script type="text/javascript" src="vendor/webcrypto-liner.shim.js"></script>
+<script type="text/javascript" src="vendor/lodash.js"></script>
+<script type="text/javascript" src="vendor/platform.js"></script>
+<script type="text/javascript" src="vendor/benchmark.js"></script>
+<script type="text/javascript" src="vendor/js-nacl_factory.js"></script>
+<script type="text/javascript" src="vendor/nacl-fast.js"></script>
+<script type="text/javascript" src="vendor/sodium.js"></script>
+<script type="text/javascript" src="vendor/sjcl.js"></script>
+<script type="text/javascript" src="dist/benchmark-tests.js"></script>
+<script type="text/javascript" src="index.js"></script>
+</body>
+</html>

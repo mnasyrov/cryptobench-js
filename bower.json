@@ -1,0 +1,7 @@
+{
+  "name": "test-tweetnacl-js-mobile",
+  "private": true,
+  "dependencies": {
+    "libsodium.js": "0.5.1"
+  }
+}

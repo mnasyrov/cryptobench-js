@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.mnasyrov.cryptobenchjs" packageName="cryptobench-js" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+    <name>CryptoBench.js</name>
+    <description>
+        Benchmarks for javascript crypto libraries.
+    </description>
+    <content src="index.html" />
+    <access origin="*" />
+    <engine name="android" spec="6.2.3" />
+    <engine name="ios" spec="4.4.0" />
+</widget>

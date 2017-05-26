@@ -1,0 +1,124 @@
+{
+    "private": true,
+    "name": "cryptobench-js",
+    "version": "1.0.0",
+    "description": "Benchmarks for javascript crypto libraries",
+    "author": "Mikhail Nasyrov (http://mnasyrov.com)",
+    "license": "MIT",
+    "homepage": "https://github.com/mnasyrov/cryptobench-js#readme",
+    "bugs": {
+        "url": "https://github.com/mnasyrov/cryptobench-js/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mnasyrov/cryptobench-js.git"
+    },
+    "keywords": [
+        "crypto",
+        "benchmark",
+        "cordova"
+    ],
+    "scripts": {
+        "--COMMON--": "",
+        "postinstall": "bower install",
+        "prestart": "npm run build",
+        "start": "node lib/cryptobench.js",
+        "--BUILD--": "",
+        "clean": "shx rm -rf ./dist ./www/dist ./www/vendor ./platforms/android/{build,assets/www} ./platforms/ios/{build,www}",
+        "build": "rollup --config",
+        "build-web": "run-s build build-web:*",
+        "build-web:copy-dist": "cpx \"./dist/**/*\" ./www/dist/ --verbose",
+        "build-web:vendor-copy": "vendor-copy",
+        "--DEV SERVER--": "",
+        "serve": "npm-run-all build-web --parallel serve:*",
+        "serve:liveserver": "live-server www --no-browser --port=8080",
+        "serve:watch-src": "npm run build -- --watch",
+        "serve:watch-dist": "npm run build-web:copy-dist -- --watch",
+        "--CORDOVA--": "",
+        "android": "run-s build-web android:*",
+        "android:prepare": "cordova prepare",
+        "android:run": "cordova run android",
+        "ios": "run-s build-web ios:*",
+        "ios:prepare": "cordova prepare",
+        "ios:run": "cordova run ios",
+        "--CLI TOOLS--": "",
+        "bower": "bower",
+        "cordova": "cordova",
+        "rollup": "rollup",
+        "vendor-copy": "vendor-copy"
+    },
+    "dependencies": {
+        "asmcrypto.js": "0.0.11",
+        "benchmark": "2.1.4",
+        "cordova-android": "6.2.3",
+        "cordova-ios": "4.4.0",
+        "core-js": "2.4.1",
+        "js-nacl": "1.2.2",
+        "libsodium-wrappers": "0.5.1",
+        "lodash": "4.17.4",
+        "sjcl": "1.0.6",
+        "tweetnacl": "1.0.0",
+        "webcrypto-liner": "0.1.23"
+    },
+    "devDependencies": {
+        "bower": "1.8.0",
+        "cordova": "7.0.1",
+        "cpx": "1.5.0",
+        "live-server": "1.2.0",
+        "node-webcrypto-ossl": "1.0.23",
+        "npm-run-all": "4.0.2",
+        "platform": "1.3.4",
+        "rollup": "0.41.6",
+        "rollup-watch": "3.2.2",
+        "shx": "0.2.2",
+        "vendor-copy": "1.3.1"
+    },
+    "cordova": {
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    },
+    "vendorCopy": [
+        {
+            "from": "./bower_components/libsodium.js/dist/browsers/combined/sodium.min.js",
+            "to": "./www/vendor/sodium.js"
+        },
+        {
+            "from": "./node_modules/benchmark/benchmark.js",
+            "to": "./www/vendor/benchmark.js"
+        },
+        {
+            "from": "./node_modules/core-js/client/shim.min.js",
+            "to": "./www/vendor/corejs-shim.js"
+        },
+        {
+            "from": "./node_modules/asmcrypto.js/asmcrypto.js",
+            "to": "./www/vendor/asmcrypto.js"
+        },
+        {
+            "from": "./node_modules/lodash/lodash.js",
+            "to": "./www/vendor/lodash.js"
+        },
+        {
+            "from": "./node_modules/js-nacl/lib/nacl_factory.js",
+            "to": "./www/vendor/js-nacl_factory.js"
+        },
+        {
+            "from": "./node_modules/platform/platform.js",
+            "to": "./www/vendor/platform.js"
+        },
+        {
+            "from": "./node_modules/sjcl/sjcl.js",
+            "to": "./www/vendor/sjcl.js"
+        },
+        {
+            "from": "./node_modules/tweetnacl/nacl-fast.min.js",
+            "to": "./www/vendor/nacl-fast.js"
+        },
+        {
+            "from": "./node_modules/webcrypto-liner/dist/webcrypto-liner.shim.js",
+            "to": "./www/vendor/webcrypto-liner.shim.js"
+        }
+    ]
+}
