@@ -66,9 +66,9 @@ function logPlatformInfo() {
 
 function runEncryptionTests(suiteTitle, payloadSize) {
     var suite = decorateSuite(new Benchmark.Suite(suiteTitle))
-        .add(forgeBench.getTitle(), forgeBench.getEncryptionTest(payloadSize))
         .add(asmCryptoBench.getTitle(), asmCryptoBench.getEncryptionTest(payloadSize))
         .add(cryptoJsBench.getTitle(), cryptoJsBench.getEncryptionTest(payloadSize))
+        .add(forgeBench.getTitle(), forgeBench.getEncryptionTest(payloadSize))
         .add(jsNaclBench.getTitle(), jsNaclBench.getEncryptionTest(payloadSize))
         .add(libsodiumBench.getTitle(), libsodiumBench.getEncryptionTest(payloadSize))
         .add(sjclBench.getTitle(), sjclBench.getEncryptionTest(payloadSize))
@@ -85,9 +85,9 @@ function runDecryptionTests(suiteTitle, payloadSize) {
         })
         .then(function (webCryptoDecryptionTestParams) {
             var suite = decorateSuite(new Benchmark.Suite(suiteTitle))
-                // .add(forgeBench.getTitle(), forgeBench.getDecryptionTest(payloadSize))
                 .add(asmCryptoBench.getTitle(), asmCryptoBench.getDecryptionTest(payloadSize))
                 .add(cryptoJsBench.getTitle(), cryptoJsBench.getDecryptionTest(payloadSize))
+                .add(forgeBench.getTitle(), forgeBench.getDecryptionTest(payloadSize))
                 .add(jsNaclBench.getTitle(), jsNaclBench.getDecryptionTest(payloadSize))
                 .add(libsodiumBench.getTitle(), libsodiumBench.getDecryptionTest(payloadSize))
                 .add(sjclBench.getTitle(), sjclBench.getDecryptionTest(payloadSize))

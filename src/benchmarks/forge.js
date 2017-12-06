@@ -39,7 +39,7 @@ export function getDecryptionTest(payloadSize) {
         fn: function () {
             var decipher = forge.cipher.createDecipher('AES-GCM', key);
             decipher.start({iv: nonce, tag: authTag});
-            decipher.update(encryptedPayload);
+            decipher.update(forge.util.createBuffer(encryptedPayload));
             var result = decipher.finish();
             if (!result) {
                 throw new Error('Failed to decode')
