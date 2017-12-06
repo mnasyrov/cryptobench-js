@@ -2,6 +2,10 @@ import {getRandomBytes} from './common';
 
 var jsnacl;
 
+export function getTitle() {
+    return 'js-nacl.js';
+}
+
 export function initialize() {
     return new Promise(function (resolve) {
         nacl_factory.instantiate(function (nacl) {

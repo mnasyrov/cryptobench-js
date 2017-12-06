@@ -16,11 +16,13 @@ Benchmarks tests performance of encryption and decryption of 1Mb random data.
 
 Libraries:
  * [asmcrypto.js](https://github.com/vibornoff/asmcrypto.js) (0.0.11)
- * [libsodium.js](https://github.com/jedisct1/libsodium.js) (0.5.1)
+ * [crypto-js](https://github.com/brix/crypto-js) (3.1.9-1)
+ * [forge](https://github.com/digitalbazaar/forge) (0.7.1)
+ * [libsodium.js](https://github.com/jedisct1/libsodium.js) (0.7.2)
  * [js-nacl](https://github.com/tonyg/js-nacl) (1.2.2)
- * [sjcl](https://github.com/bitwiseshiftleft/sjcl) (1.0.6)
+ * [sjcl](https://github.com/bitwiseshiftleft/sjcl) (1.0.7)
  * [tweetnacl.js](https://github.com/dchest/tweetnacl-js) (1.0.0)
- * [webcrypto-liner](https://github.com/PeculiarVentures/webcrypto-liner) (0.1.23)
+ * [webcrypto-liner](https://github.com/PeculiarVentures/webcrypto-liner) (0.1.27)
 
 Where is possible WebCrypto API is tested as a reference.
 A fallback to `webcrypto-liner`/`asmcrypto.js` is used if a native implementation is not available.
@@ -61,25 +63,51 @@ Test machine: 2.2 GHz IntelCore i7, 16GB of 1600 MHz DDR3
 
 ### Desktop
 
-Node.js v7.9.0
+Node.js v8.3.0
 
-    Benchmark: Encrypting of 1Mb random data ...
-    * asmcrypto.js (AES-GCM) x 7.38 ops/sec ±20.27% (22 runs sampled)
-    * js-nacl.js x 15.87 ops/sec ±6.82% (43 runs sampled)
-    * libsodium.js x 11.02 ops/sec ±2.63% (31 runs sampled)
-    * SJCL (AES-GCM) x 1.48 ops/sec ±8.14% (8 runs sampled)
-    * tweetnacl.js x 58.30 ops/sec ±9.89% (57 runs sampled)
-    * WebCrypto API (AES-GCM) x 323 ops/sec ±1.64% (77 runs sampled)
+    Benchmark: Encrypting 2 Kb of random data ...
+    * asmcrypto.js (AES-GCM) x 4,209 ops/sec ±1.22% (82 runs sampled)
+    * crypto-js (AES) x 1,667 ops/sec ±2.62% (79 runs sampled)
+    * forge (AES-GCM) x 4,482 ops/sec ±1.52% (80 runs sampled)
+    * js-nacl.js x 9,039 ops/sec ±1.46% (80 runs sampled)
+    * libsodium.js x 32,973 ops/sec ±1.87% (83 runs sampled)
+    * SJCL (AES-GCM) x 944 ops/sec ±1.26% (83 runs sampled)
+    * tweetnacl.js x 27,543 ops/sec ±4.18% (74 runs sampled)
+    * WebCrypto API (AES-GCM) x 22,269 ops/sec ±1.33% (79 runs sampled)
+    Fastest is libsodium.js
+    
+    Benchmark: Decrypting 2 Kb of random data ...
+    * asmcrypto.js (AES-GCM) x 4,174 ops/sec ±1.28% (84 runs sampled)
+    * crypto-js (AES) x 2,551 ops/sec ±2.27% (79 runs sampled)
+    * forge (AES-GCM) x 11,164 ops/sec ±1.37% (79 runs sampled)
+    * js-nacl.js x 9,513 ops/sec ±1.14% (85 runs sampled)
+    * libsodium.js x 33,812 ops/sec ±1.46% (84 runs sampled)
+    * SJCL (AES-GCM) x 945 ops/sec ±1.28% (86 runs sampled)
+    * tweetnacl.js x 23,271 ops/sec ±4.76% (72 runs sampled)
+    * WebCrypto API (AES-GCM) x 22,112 ops/sec ±1.23% (76 runs sampled)
+    Fastest is libsodium.js
+    
+    Benchmark: Encrypting 1 Mb of random data ...
+    * asmcrypto.js (AES-GCM) x 9.08 ops/sec ±1.59% (26 runs sampled)
+    * crypto-js (AES) x 4.85 ops/sec ±5.79% (16 runs sampled)
+    * forge (AES-GCM) x 7.49 ops/sec ±6.59% (21 runs sampled)
+    * js-nacl.js x 19.43 ops/sec ±2.11% (35 runs sampled)
+    * libsodium.js x 77.63 ops/sec ±1.80% (64 runs sampled)
+    * SJCL (AES-GCM) x 1.82 ops/sec ±4.67% (9 runs sampled)
+    * tweetnacl.js x 69.63 ops/sec ±5.11% (58 runs sampled)
+    * WebCrypto API (AES-GCM) x 395 ops/sec ±1.14% (49 runs sampled)
     Fastest is WebCrypto API (AES-GCM)
-
-    Benchmark: Decrypting of 1Mb random data ...
-    * asmcrypto.js (AES-GCM) x 7.55 ops/sec ±10.51% (23 runs sampled)
-    * js-nacl.js x 15.95 ops/sec ±6.82% (42 runs sampled)
-    * libsodium.js x 11.04 ops/sec ±1.62% (31 runs sampled)
-    * SJCL (AES-GCM) x 1.44 ops/sec ±10.15% (8 runs sampled)
-    * tweetnacl.js x 61.50 ops/sec ±8.26% (61 runs sampled)
-    * WebCrypto API (AES-GCM) x 601 ops/sec ±5.05% (61 runs sampled)
-    Fastest is WebCrypto API (AES-GCM)
+    
+    Benchmark: Decrypting 1 Mb of random data ...
+    * asmcrypto.js (AES-GCM) x 8.89 ops/sec ±1.91% (26 runs sampled)
+    * crypto-js (AES) x 8.33 ops/sec ±5.16% (25 runs sampled)
+    * forge (AES-GCM) x 12,328 ops/sec ±1.31% (81 runs sampled)
+    * js-nacl.js x 19.70 ops/sec ±1.29% (36 runs sampled)
+    * libsodium.js x 78.47 ops/sec ±1.33% (64 runs sampled)
+    * SJCL (AES-GCM) x 1.92 ops/sec ±2.54% (9 runs sampled)
+    * tweetnacl.js x 71.10 ops/sec ±5.48% (59 runs sampled)
+    * WebCrypto API (AES-GCM) x 468 ops/sec ±2.35% (65 runs sampled)
+    Fastest is forge (AES-GCM)
 
 
 Google Chrome:

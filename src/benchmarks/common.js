@@ -11,3 +11,11 @@ export function getRandomBytes(size) {
     }
     return result;
 }
+
+export function bytesToString(bytes) {
+    var str = '';
+    for (var i = 0; i < bytes.length; i++) {
+        str += bytes[i];
+    }
+    return str;
+}

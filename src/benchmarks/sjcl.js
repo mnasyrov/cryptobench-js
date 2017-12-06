@@ -1,14 +1,14 @@
-import {getRandomBytes} from './common';
+import {bytesToString, getRandomBytes} from './common';
+
+export function getTitle() {
+    return 'SJCL (AES-GCM)';
+}
 
 export function getEncryptionTest(payloadSize) {
     var iv, payloadBits, keyBits, cipher;
     return {
         onStart: function () {
-            var payloadBytes = getRandomBytes(payloadSize);
-            var strPayload = '';
-            for (var i = 0; i < payloadBytes.length; i++) {
-                strPayload += payloadBytes[i];
-            }
+            var strPayload = bytesToString(getRandomBytes(payloadSize));
             payloadBits = sjcl.codec.utf8String.toBits(strPayload);
             keyBits = sjcl.random.randomWords(8); // 32 bytes
             cipher = new sjcl.cipher.aes(keyBits);
@@ -24,11 +24,7 @@ export function getDecryptionTest(payloadSize) {
     var iv, payloadBits, keyBits, cipher, encryptedPayloadBits;
     return {
         onStart: function () {
-            var payloadBytes = getRandomBytes(payloadSize);
-            var strPayload = '';
-            for (var i = 0; i < payloadBytes.length; i++) {
-                strPayload += payloadBytes[i];
-            }
+            var strPayload = bytesToString(getRandomBytes(payloadSize));
             payloadBits = sjcl.codec.utf8String.toBits(strPayload);
             keyBits = sjcl.random.randomWords(8); // 32 bytes
             cipher = new sjcl.cipher.aes(keyBits);

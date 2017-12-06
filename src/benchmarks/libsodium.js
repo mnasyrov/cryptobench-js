@@ -1,5 +1,9 @@
 import {getRandomBytes} from './common';
 
+export function getTitle() {
+    return 'libsodium.js';
+}
+
 export function getEncryptionTest(payloadSize) {
     var key, nonce, payload;
     return {

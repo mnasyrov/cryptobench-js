@@ -1,5 +1,9 @@
 import {getRandomBytes} from './common';
 
+export function getTitle() {
+    return 'WebCrypto API (AES-GCM)';
+}
+
 export function getEncryptionTest(payloadSize) {
     var key, nonce, payload, iv;
     return {
