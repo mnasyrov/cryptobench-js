@@ -84,7 +84,7 @@
       "to": "./www/vendor/forge.js"
     },
     {
-      "from": "./bower_components/crypto-js/crypto-js.js",
+      "from": "./node_modules/crypto-js/crypto-js.js",
       "to": "./www/vendor/crypto-js.js"
     },
     {
