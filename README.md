@@ -44,7 +44,11 @@ For testing in node.js run:
 
 ### Browser
 
-For testing in a browser run `npm run serve` and open a test page [http://localhost:8080](http://localhost:8080).
+For testing in a browser run:
+
+    npm run serve
+    
+and open a test page [http://localhost:8080](http://localhost:8080).
 
 
 ### Android
