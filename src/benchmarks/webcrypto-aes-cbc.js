@@ -1,7 +1,7 @@
 import {getRandomBytes} from './common';
 
 export function getTitle() {
-    return 'WebCrypto API (AES-GCM)';
+    return 'WebCrypto API (AES-CBC)';
 }
 
 export function getEncryptionTest(payloadSize) {
@@ -12,7 +12,7 @@ export function getEncryptionTest(payloadSize) {
             key = getRandomBytes(32);
             nonce = getRandomBytes(24);
             payload = getRandomBytes(payloadSize);
-            iv = crypto.getRandomValues(new Uint8Array(12));
+            iv = crypto.getRandomValues(new Uint8Array(16));
         },
         fn: function (deferred) {
             var errorHandler = function (error) {
@@ -21,10 +21,10 @@ export function getEncryptionTest(payloadSize) {
                 deferred.resolve();
             };
             try {
-                crypto.subtle.importKey('raw', key, {name: 'AES-GCM'}, false, ['encrypt', 'decrypt'])
+                crypto.subtle.importKey('raw', key, {name: 'AES-CBC'}, false, ['encrypt', 'decrypt'])
                     .then(function (masterKey) {
                         return crypto.subtle.encrypt({
-                            name: 'AES-GCM',
+                            name: 'AES-CBC',
                             iv: iv,
                             additionalData: nonce
                         }, masterKey, payload)
@@ -42,15 +42,15 @@ export function getEncryptionTest(payloadSize) {
 }
 
 export function prepareDecryptionTest(payloadSize) {
-    key = getRandomBytes(32);
-    nonce = getRandomBytes(24);
-    payload = getRandomBytes(payloadSize);
-    iv = crypto.getRandomValues(new Uint8Array(12));
+    var key = getRandomBytes(32);
+    var nonce = getRandomBytes(24);
+    var payload = getRandomBytes(payloadSize);
+    var iv = crypto.getRandomValues(new Uint8Array(16));
 
-    return crypto.subtle.importKey('raw', key, {name: 'AES-GCM'}, false, ['encrypt', 'decrypt'])
+    return crypto.subtle.importKey('raw', key, {name: 'AES-CBC'}, false, ['encrypt', 'decrypt'])
         .then(function (masterKey) {
             return crypto.subtle.encrypt({
-                name: 'AES-GCM',
+                name: 'AES-CBC',
                 iv: iv,
                 additionalData: nonce
             }, masterKey, payload)
@@ -75,10 +75,10 @@ export function getDecryptionTest(params) {
                 deferred.resolve();
             };
             try {
-                crypto.subtle.importKey('raw', params.key, {name: 'AES-GCM'}, false, ['encrypt', 'decrypt'])
+                crypto.subtle.importKey('raw', params.key, {name: 'AES-CBC'}, false, ['encrypt', 'decrypt'])
                     .then(function (masterKey) {
                         return crypto.subtle.decrypt({
-                            name: 'AES-GCM',
+                            name: 'AES-CBC',
                             iv: params.iv,
                             additionalData: params.nonce
                         }, masterKey, params.encryptedPayload)

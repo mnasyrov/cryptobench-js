@@ -1,7 +1,7 @@
 import {bytesToString, getRandomBytes} from './common';
 
 export function getTitle() {
-    return 'crypto-js (AES)';
+    return 'crypto-js (AES-CBC)';
 }
 
 export function getEncryptionTest(payloadSize) {

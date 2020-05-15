@@ -1,11 +1,15 @@
-import * as asmCryptoBench from './benchmarks/asmcrypto';
+import * as asmCryptoBench_AES_GCM from './benchmarks/asmcrypto-aes-gcm';
+import * as asmCryptoBench_AES_CBC from './benchmarks/asmcrypto-aes-cbc';
 import * as cryptoJsBench from './benchmarks/crypto-js';
-import * as forgeBench from './benchmarks/forge';
+import * as forgeBench_AES_GCM from './benchmarks/forge-aes-gcm';
+import * as forgeBench_AES_CBC from './benchmarks/forge-aes-cbc';
 import * as jsNaclBench from './benchmarks/jsnacl';
 import * as libsodiumBench from './benchmarks/libsodium';
-import * as sjclBench from './benchmarks/sjcl';
+import * as sjclBench_AES_GCM from './benchmarks/sjcl-aes-gcm';
+import * as sjclBench_AES_CCM from './benchmarks/sjcl-aes-ccm';
 import * as tweetNaclBench from './benchmarks/tweetnacl';
-import * as webCryptoBench from './benchmarks/webcrypto';
+import * as webCryptoBench_AES_GCM from './benchmarks/webcrypto-aes-gcm';
+import * as webCryptoBench_AES_CBC from './benchmarks/webcrypto-aes-cbc';
 
 var PAYLOAD_SIZE_2KB = 2048;
 var PAYLOAD_SIZE_1MB = 1048576;
@@ -66,33 +70,59 @@ function logPlatformInfo() {
 
 function runEncryptionTests(suiteTitle, payloadSize) {
     var suite = decorateSuite(new Benchmark.Suite(suiteTitle))
-        .add(asmCryptoBench.getTitle(), asmCryptoBench.getEncryptionTest(payloadSize))
+        .add(asmCryptoBench_AES_CBC.getTitle(), asmCryptoBench_AES_CBC.getEncryptionTest(payloadSize))
+        .add(asmCryptoBench_AES_GCM.getTitle(), asmCryptoBench_AES_GCM.getEncryptionTest(payloadSize))
+
         .add(cryptoJsBench.getTitle(), cryptoJsBench.getEncryptionTest(payloadSize))
-        .add(forgeBench.getTitle(), forgeBench.getEncryptionTest(payloadSize))
+
+        .add(forgeBench_AES_CBC.getTitle(), forgeBench_AES_CBC.getEncryptionTest(payloadSize))
+        .add(forgeBench_AES_GCM.getTitle(), forgeBench_AES_GCM.getEncryptionTest(payloadSize))
+
         .add(jsNaclBench.getTitle(), jsNaclBench.getEncryptionTest(payloadSize))
         .add(libsodiumBench.getTitle(), libsodiumBench.getEncryptionTest(payloadSize))
-        .add(sjclBench.getTitle(), sjclBench.getEncryptionTest(payloadSize))
+
+        .add(sjclBench_AES_CCM.getTitle(), sjclBench_AES_CCM.getEncryptionTest(payloadSize))
+        .add(sjclBench_AES_GCM.getTitle(), sjclBench_AES_GCM.getEncryptionTest(payloadSize))
+
         .add(tweetNaclBench.getTitle(), tweetNaclBench.getEncryptionTest(payloadSize))
-        .add(webCryptoBench.getTitle(), webCryptoBench.getEncryptionTest(payloadSize));
+
+        .add(webCryptoBench_AES_CBC.getTitle(), webCryptoBench_AES_CBC.getEncryptionTest(payloadSize))
+        .add(webCryptoBench_AES_GCM.getTitle(), webCryptoBench_AES_GCM.getEncryptionTest(payloadSize));
     return runSuite(suite);
 }
 
 function runDecryptionTests(suiteTitle, payloadSize) {
-    return webCryptoBench.prepareDecryptionTest(payloadSize)
+    return Promise.all([
+        webCryptoBench_AES_CBC.prepareDecryptionTest(payloadSize),
+        webCryptoBench_AES_GCM.prepareDecryptionTest(payloadSize),
+    ])
         .catch(function (error) {
-            console.error('Failed to create parameters for WebCrypto test.', error);
+            console.error('Failed to prepare WebCrypto tests', error);
             return null;
         })
-        .then(function (webCryptoDecryptionTestParams) {
+        .then(function (preparedParams) {
+            var webCryptoAesCbcDecryptionParams = preparedParams[0];
+            var webCryptoAesGcmDecryptionParams = preparedParams[1];
+
             var suite = decorateSuite(new Benchmark.Suite(suiteTitle))
-                .add(asmCryptoBench.getTitle(), asmCryptoBench.getDecryptionTest(payloadSize))
+                .add(asmCryptoBench_AES_CBC.getTitle(), asmCryptoBench_AES_CBC.getDecryptionTest(payloadSize))
+                .add(asmCryptoBench_AES_GCM.getTitle(), asmCryptoBench_AES_GCM.getDecryptionTest(payloadSize))
+
                 .add(cryptoJsBench.getTitle(), cryptoJsBench.getDecryptionTest(payloadSize))
-                .add(forgeBench.getTitle(), forgeBench.getDecryptionTest(payloadSize))
+
+                .add(forgeBench_AES_CBC.getTitle(), forgeBench_AES_CBC.getDecryptionTest(payloadSize))
+                .add(forgeBench_AES_GCM.getTitle(), forgeBench_AES_GCM.getDecryptionTest(payloadSize))
+
                 .add(jsNaclBench.getTitle(), jsNaclBench.getDecryptionTest(payloadSize))
                 .add(libsodiumBench.getTitle(), libsodiumBench.getDecryptionTest(payloadSize))
-                .add(sjclBench.getTitle(), sjclBench.getDecryptionTest(payloadSize))
+
+                .add(sjclBench_AES_CCM.getTitle(), sjclBench_AES_CCM.getDecryptionTest(payloadSize))
+                .add(sjclBench_AES_GCM.getTitle(), sjclBench_AES_GCM.getDecryptionTest(payloadSize))
+
                 .add(tweetNaclBench.getTitle(), tweetNaclBench.getDecryptionTest(payloadSize))
-                .add(webCryptoBench.getTitle(), webCryptoBench.getDecryptionTest(webCryptoDecryptionTestParams));
+
+                .add(webCryptoBench_AES_CBC.getTitle(), webCryptoBench_AES_CBC.getDecryptionTest(webCryptoAesCbcDecryptionParams))
+                .add(webCryptoBench_AES_GCM.getTitle(), webCryptoBench_AES_GCM.getDecryptionTest(webCryptoAesGcmDecryptionParams));
             return runSuite(suite);
         });
 }

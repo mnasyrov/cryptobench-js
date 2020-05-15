@@ -12,7 +12,7 @@ export function getEncryptionTest(payloadSize) {
             payloadBits = sjcl.codec.utf8String.toBits(strPayload);
             keyBits = sjcl.random.randomWords(8); // 32 bytes
             cipher = new sjcl.cipher.aes(keyBits);
-            iv = sjcl.random.randomWords(4, 0);
+            iv = sjcl.random.randomWords(32, 0);
         },
         fn: function () {
             sjcl.mode.gcm.encrypt(cipher, payloadBits, iv);
@@ -28,7 +28,7 @@ export function getDecryptionTest(payloadSize) {
             payloadBits = sjcl.codec.utf8String.toBits(strPayload);
             keyBits = sjcl.random.randomWords(8); // 32 bytes
             cipher = new sjcl.cipher.aes(keyBits);
-            iv = sjcl.random.randomWords(4, 0);
+            iv = sjcl.random.randomWords(32, 0);
             encryptedPayloadBits = sjcl.mode.gcm.encrypt(cipher, payloadBits, iv)
         },
         fn: function () {
