@@ -1,6 +1,5 @@
-## Benchmark results
+## Benchmark 2018-02-16
 
-- Date: 2018-02-16
 - Machine: 2.2 GHz IntelCore i7, 16GB of 1600 MHz DDR3
 
 Libraries:

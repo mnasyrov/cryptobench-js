@@ -1,17 +1,4 @@
-# CryptoBench.js
-
-Benchmarks for javascript crypto libraries.
-
-[![Build Status](https://travis-ci.org/mnasyrov/cryptobench-js.svg?branch=master)](https://travis-ci.org/mnasyrov/cryptobench-js)
-
-The subject of tests are client-side javascript libraries under various environments:
-* node.js;
-* browsers;
-* cordova applications: Android and iOS.
-
-Benchmark tests performance of encryption and decryption of 1Mb random data.
-
-## The latest benchmark
+## Benchmark 2020-05-15
 
 - Machine: 2.2 GHz IntelCore i7, 16GB of 1600 MHz DDR3
 
@@ -286,42 +273,3 @@ A fallback to `webcrypto-liner`/`asmcrypto.js` is used if a native implementatio
     * WebCrypto API (AES-CBC) x 314 ops/sec ±2.75% (56 runs sampled)
     * WebCrypto API (AES-GCM) x 163 ops/sec ±2.06% (55 runs sampled)
     Fastest is WebCrypto API (AES-CBC)
-
-
-## History benchmarks
-
-- [Benchmark 2020-05-15](docs/benchmark_2020-05-15.md)
-- [Benchmark 2018-02-16](docs/benchmark_2018-02-16.md)
-
-
-## Running
-
-Install dependencies:
-
-    npm install
-
-Run with node.js:
-
-    npm start
-
-Run with a browser:
-
-    npm run serve
-
-After open a test page [http://localhost:8080](http://localhost:8080).
-
-### Cordova
-
-Android SDK must be installed and an emulator/device should be running.
-
-    npm run android
-
-Xcode must be installed before.
-
-    npm run ios
-
-
-## Useful links
-
-* [JavaScript Crypto Libraries](https://gist.github.com/jo/8619441) by [Johannes Jörg Schmidt](https://github.com/jo)
-* [JavaScript Crypto Libraries (enhanced list)](https://github.com/gabrielizalo/JavaScript-Crypto-Libraries) by [Gabriel Porras](https://github.com/gabrielizalo)
